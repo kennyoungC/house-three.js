@@ -106,19 +106,21 @@ function createDirectionalLight() {
   const color = 0xffffff
   const intensity = 10
   light = new THREE.DirectionalLight(color, intensity)
-  light.position.set(20, 20, 20)
-  light.target.position.set(0, 0, 0)
+  light.position.x += 35
+  light.position.y += 30
+  light.position.z += 40
   light.castShadow = true
-  light.shadow.bias = -0.001
-  light.shadow.mapSize.width = 2048 // default
-  light.shadow.mapSize.height = 2048 // default
-  light.shadow.camera.near = 1 // default
-  light.shadow.camera.far = 500.0 // default
-  light.shadow.camera.left = 500
-  light.shadow.camera.right = -500
-  light.shadow.camera.top = 500
-  light.shadow.camera.bottom = 500
+
   scene.add(light)
+
+  light.shadow.mapSize.width = 4096
+  light.shadow.mapSize.height = 4096
+
+  light.shadow.camera.top += 25
+  light.shadow.camera.bottom -= 25
+  light.shadow.camera.left -= 25
+  light.shadow.camera.right += 25
+  // scene.add(new THREE.CameraHelper(light.shadow.camera))
 }
 
 function createPlane() {
@@ -151,6 +153,7 @@ function createFloor() {
   texture.wrapS = THREE.RepeatWrapping
   texture.wrapT = THREE.RepeatWrapping
   texture.repeat.set(2, 2)
+
   const material = new THREE.MeshBasicMaterial({ map: texture })
   const floor = new THREE.Mesh(geometry, material)
   floor.receiveShadow = true
@@ -318,12 +321,13 @@ function createCylinder() {
   const material = new THREE.MeshPhongMaterial({ color: 0x540c0f })
   const cylinder = new THREE.Mesh(geometry, material)
   scene.add(cylinder)
-  cylinder.castShadow = true
+  cylinder.position.set(-9.5, 2.5, 3.1)
   cylinder.receiveShadow = true
+  cylinder.castShadow = true
 
-  cylinder.position.x = -9.5
-  cylinder.position.y = 2.5
-  cylinder.position.z = 3.1
+  // cylinder.position.x = -9.5
+  // cylinder.position.y = 2.5
+  // cylinder.position.z = 3.1
 
   scene.add(cylinder)
   return cylinder
@@ -345,10 +349,20 @@ function createMeshes() {
   createRoof2()
   createCarpet()
   const cyl1 = createCylinder()
+  cyl1.castShadow = true
+  cyl1.receiveShadow = true
   const cyl2 = createCylinder()
+  cyl2.castShadow = true
+  cyl2.receiveShadow = true
   const cyl3 = createCylinder()
+  cyl3.castShadow = true
+  cyl3.receiveShadow = true
   const cyl4 = createCylinder()
+  cyl4.castShadow = true
+  cyl4.receiveShadow = true
   const cyl5 = createCylinder()
+  cyl5.castShadow = true
+  cyl5.receiveShadow = true
   const cyl6 = createCylinder()
   cyl1.position.z = 8.9
   cyl2.position.z = 3.1
