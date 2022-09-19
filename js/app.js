@@ -130,14 +130,19 @@ function createPlane() {
   texture.wrapT = THREE.RepeatWrapping
   texture.repeat.set(5, 5)
   const grassMaterial = new THREE.MeshBasicMaterial({ map: texture })
-  const planeMaterial = new THREE.MeshBasicMaterial({
-    color: "gray",
-    // color: 0xbdbcb9,
-    side: THREE.DoubleSide,
+  // const planeMaterial = new THREE.MeshBasicMaterial({
+  //   color: "gray",
+  //   // color: 0xbdbcb9,
+  //   side: THREE.DoubleSide,
+  // })
+  const planeMaterial = new THREE.MeshPhongMaterial({
+    color: "grey",
+    wireframe: false,
   })
 
   plane = new THREE.Mesh(grassGeometry, planeMaterial)
   plane.receiveShadow = true
+  plane.castShadow = true
 
   plane.rotation.x = -0.5 * Math.PI
   plane.position.x = 0
@@ -156,7 +161,7 @@ function createFloor() {
 
   const material = new THREE.MeshBasicMaterial({ map: texture })
   const floor = new THREE.Mesh(geometry, material)
-  floor.receiveShadow = true
+
   floor.rotation.x = -0.5 * Math.PI
   floor.position.y = 0
   floor.position.z = 0
